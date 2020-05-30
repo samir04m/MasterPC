@@ -7,7 +7,15 @@ main {
 	flex: 1 0 auto;
 }
 
-
+.bg-black { background-color: black; }
 .bg-dark-1 { background-color: #202125; }
 .bg-dark-2 { background-color: #2d2e32; }
 .bg-light-1 { background-color: #dbddd9; }
+
+@font-face {
+  font-family: 'LobsterTwo';
+  src: URL('../fonts/LobsterTwo-Regular.ttf') format('truetype');
+}
+.lobster {
+	font-family: 'LobsterTwo' !important;
+}
