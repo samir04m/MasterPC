@@ -6,72 +6,70 @@
 {% block container %}
 <div class="container">
   {% if not request.user.is_authenticated %}
-    <h1 class="text-light">Hello, Welcome to MasterPC</h1>
-    
+    <div class="jumbotron bg-dark text-light text-center my-3">
+      <h1 class="display-3 lobster">Welcome to Master PC</h1>
+      <!-- <p class="lead">Jumbo helper text</p> -->
+      <hr class="my-2">
+      <p>Are you ready?</p>
+      <p class="lead">
+        <a class="btn btn-outline-light" href="{% url 'login' %}" role="button">Get Started</a>
+      </p>
+    </div>
+
   {% else %}
       <div class="col-sm-12 col-lg-6">
       
-        <h4 class="text-light my-3"> Mis PCs
-          <button type="button" class="btn btn-outline-warning btn-sm float-right rounded-pill px-3" data-toggle="collapse"
-            data-target="#add_pc" aria-expanded="false" aria-controls="add_pc">
+        <h4 class="text-light my-4"> Mis PCs
+          <a href="{% url 'create_pc' %}" class="btn btn-outline-warning btn-sm float-right rounded-pill px-3">
             <i class="fas fa-plus"></i> Agregar
-          </button>
+          </a>
         </h4>
-      
-        <div class="collapse" id="add_pc">
-          <div class="card card-body bg-light">
-            <form method="POST" action="">
-              <div class="form-group">
-                <label for="name">Nombre del PC</label>
-                <input type="text" class="form-control" name="name" required minlength="4"
-                  maxlength="50" placeholder="Ingresa un nombre para este equipo" />
+
+        {% if pcs %}
+          {% for pc in pcs %}
+          <div class="card bg-warning my-3 shadow">
+            <div class="card-body py-2">
+              <h5><a href="{% url 'update_pc' pc.id %}" class="text-dark">{{pc.name}}</a>
+                <button class="btn btn-warning btn-sm rounded-circle float-right" type="button" data-toggle="collapse"
+                  data-target="#collapse_{{pc.id}}" aria-expanded="false" aria-controls="collapse_{{pc.id}}">
+                  <i class="fas fa-angle-down fa-lg"></i>
+                </button>
+              </h5>
+              <div class="collapse" id="collapse_{{pc.id}}">
+                <p class="text-truncate mb-0 small">
+                  CPU: Amd Ryzen 5 3600 <br>
+                  GPU: Gigabyte RX 5500 XT 8G OC <br>
+                  Board: Gigabyte Aorus B450M <br>
+                  RAM: Corsair Vengeance RGB Pro 8GB 3000Mhz (x2) <br>
+                  Disk: Crusial 512GB (Ssd M.2) <br>
+                  Seagate Barracuda 2TB (HHD) <br>
+                  PSU: Thermaltake 600W Bronce <br>
+                </p>
+                <div class="text-right">
+                  <a href="{% url 'update_pc' pc.id %}" class="btn btn-outline-dark rounded-pill btn-sm px-3">
+                    <i class="far fa-edit"></i> Edit
+                  </a>
+                  <a href="{% url 'delete_pc' pc.id %}" class="btn btn-outline-dark rounded-pill btn-sm px-3">
+                    <i class="far fa-trash-alt"></i> Delete
+                  </a>
+                </div>
+
               </div>
-              <div class="form-group">
-                <label for="budget">Presupuesto <span class="text-muted">(Opcional)</span></label>
-                <input type="number" class="form-control" name="budget" min="600000" max="20000000"
-                  #budget="ngModel" placeholder="Valor en Pesos Colombianos" />
-              </div>
-      
-              <div class="form-group text-center mb-1">
-                <button class="btn btn-warning px-5 rounded-pill">Guardar</button>
-              </div>
-      
-              <div class="alert alert-warning" *ngIf="pcform.submitted && falloGuardar">
-                Signup failed!<br />{{ errorMessage }}
-              </div>
-            </form>
-          </div>
-        </div>
-      
-        <div class="card bg-warning my-3 shadow" *ngFor="let pc of pcs; let i = index">
-          <div class="card-body py-2">
-            <h5><a href="" class="text-dark">{{pc.name}}</a>
-              <button class="btn btn-warning btn-sm rounded-circle float-right" type="button" data-toggle="collapse"
-                [attr.data-target]="'#collapse_'+i" aria-expanded="false" [attr.aria-controls]="'collapse_'+i">
-                <i class="fas fa-angle-down fa-lg"></i>
-              </button>
-            </h5>
-            <div class="collapse" [attr.id]="'collapse_'+i">
-              <p class="text-truncate mb-0 small">
-                CPU: Amd Ryzen 5 3600 <br>
-                GPU: Gigabyte RX 5500 XT 8G OC <br>
-                Board: Gigabyte Aorus B450M <br>
-                RAM: Corsair Vengeance RGB Pro 8GB 3000Mhz (x2) <br>
-                Disk: Crusial 512GB (Ssd M.2) <br>
-                Seagate Barracuda 2TB (HHD) <br>
-                PSU: Thermaltake 600W Bronce <br>
-              </p>
+        
             </div>
-      
+            <div class="card-footer py-1 text-center">
+              <span class="m-2">Presupuesto:
+                <span> {% if pc.budget %}  $ {{pc.budget}}  {% else  %} - {% endif %} </span>
+              </span>
+              <span class="m-2 font-weight-bold ">Costo: $ 2.000.000</span>
+            </div>
           </div>
-          <div class="card-footer py-1 text-center">
-            <span class="m-2">Presupuesto:
-              <span *ngIf="pc.budget">$ {{pc.budget}}</span>
-              <span *ngIf="!pc.budget"> - </span>
-            </span>
-            <span class="m-2 font-weight-bold ">Costo: $ 2.000.000</span>
-          </div>
-        </div>
+          
+          {% endfor %}
+
+        {% else %}
+          <div class="text-center text-light">Don't create a PC yet</div>
+        {% endif %}
       </div>
         
   {% endif %}
