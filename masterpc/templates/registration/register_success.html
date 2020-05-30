@@ -1,0 +1,26 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Successful Sign Up{% endblock %}
+
+{% block container %}
+
+<div class="container">
+    <div class="row pt-3">
+        <div class="col-sm-12 offset-md-3 col-md-6">
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading pb-3">Successful registration!</h4>
+                <p class="text-justify">You have successfully registered. Do you already have an account.</p>
+                <!-- <hr> -->
+                <!-- <p class="mb-0 text-light">To log in, click here:</p> -->
+            </div>
+            <div class="text-center">
+                <a href="{% url 'login' %}" 
+                class="btn btn-warning my-3 px-4">Log In</a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
