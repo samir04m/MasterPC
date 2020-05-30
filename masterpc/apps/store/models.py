@@ -21,6 +21,7 @@ class Store(models.Model):
         return "{}".format(self.name)
 
 class Store_cpu(models.Model):
+    id =  models.AutoField(primary_key=True)
     cpu = models.ForeignKey(Cpu, on_delete=models.CASCADE)
     store = models.ForeignKey(Store, on_delete=models.CASCADE)
     url = models.URLField('Url', max_length=500)
@@ -36,6 +37,7 @@ class Store_cpu(models.Model):
         return "{} ({})".format(self.cpu, self.store)
 
 class Store_gpu(models.Model):
+    id =  models.AutoField(primary_key=True)
     gpu = models.ForeignKey(Gpu, on_delete=models.CASCADE)
     store = models.ForeignKey(Store, on_delete=models.CASCADE)
     url = models.URLField('Url', max_length=500)
@@ -51,6 +53,7 @@ class Store_gpu(models.Model):
         return "{} ({})".format(self.gpu, self.store)
 
 class Store_board(models.Model):
+    id =  models.AutoField(primary_key=True)
     board = models.ForeignKey(Board, on_delete=models.CASCADE)
     store = models.ForeignKey(Store, on_delete=models.CASCADE)
     url = models.URLField('Url', max_length=500)
@@ -66,6 +69,7 @@ class Store_board(models.Model):
         return "{} ({})".format(self.board, self.store)
 
 class Store_ram(models.Model):
+    id =  models.AutoField(primary_key=True)
     ram = models.ForeignKey(Ram, on_delete=models.CASCADE)
     store = models.ForeignKey(Store, on_delete=models.CASCADE)
     url = models.URLField('Url', max_length=500)
@@ -81,6 +85,7 @@ class Store_ram(models.Model):
         return "{} ({})".format(self.ram, self.store)
 
 class Store_storage(models.Model):
+    id =  models.AutoField(primary_key=True)
     storage = models.ForeignKey(Storage, on_delete=models.CASCADE)
     store = models.ForeignKey(Store, on_delete=models.CASCADE)
     url = models.URLField('Url', max_length=500)
@@ -96,6 +101,7 @@ class Store_storage(models.Model):
         return "{} ({})".format(self.storage, self.store)
 
 class Store_psu(models.Model):
+    id =  models.AutoField(primary_key=True)
     psu = models.ForeignKey(Psu, on_delete=models.CASCADE)
     store = models.ForeignKey(Store, on_delete=models.CASCADE)
     url = models.URLField('Url', max_length=500)
@@ -111,6 +117,7 @@ class Store_psu(models.Model):
         return "{} ({})".format(self.psu, self.store)
 
 class Store_case(models.Model):
+    id =  models.AutoField(primary_key=True)
     case = models.ForeignKey(Case, on_delete=models.CASCADE)
     store = models.ForeignKey(Store, on_delete=models.CASCADE)
     url = models.URLField('Url', max_length=500)
