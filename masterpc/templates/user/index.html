@@ -1,5 +1,5 @@
 {% extends 'base/base.html' %}
-{% load static %}
+{% load cost %}
 
 {% block title %}Home{% endblock %}
 
@@ -70,7 +70,7 @@
               <span class="m-2">Presupuesto:
                 <span> {% if pc.budget %}  $ {{pc.budget}}  {% else  %} - {% endif %} </span>
               </span>
-              <span class="m-2 font-weight-bold ">Costo: -</span>
+              <span class="m-2 font-weight-bold ">Costo: $ {{ pc|cost }}</span>
             </div>
           </div>
           

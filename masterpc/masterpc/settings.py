@@ -120,6 +120,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+USE_THOUSAND_SEPARATOR = True
+
 # Login and register
 
 LOGIN_REDIRECT_URL = reverse_lazy('index')
