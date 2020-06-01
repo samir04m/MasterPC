@@ -1,0 +1,63 @@
+{% extends 'base/base.html' %}
+
+{% block title %}PC Details{% endblock %}
+
+{% block container %}
+<div class="container py-4">
+   <h3 class="text-light">Select {{ name_component }}</h3>
+   <div class="form-group">
+      <select class="form-control" name="comp" id="comp">
+         <option value="0" disabled>Select {{ name_component}}</option>
+         {% for object in objects %}
+         <option value="{{object.id}}">{{object}}</option>
+         {% endfor %}
+      </select>
+   </div>
+
+   {% if stores %}
+      <h3 class="text-center text-light">Select a Store</h3>
+      <table class="table table-dark">
+         <thead>
+            <tr>
+               <th>Price</th>
+               <th>Store</th>
+               <th>URL</th>
+               <th>Add to PC</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for store in stores %}
+            <tr>
+               <td>$ {{store.price}}</td>
+               <td>{{store.store.name}}</td>
+               <td><a href="{{store.url}}" class="" target="_blank"> Open <i class="fas fa-external-link-alt"></i></a></td>
+               <td class="text-center">
+                  <a href="{% url 'add_component' pc_id name_component comp_id store.id %}" class="btn btn-warning btn-sm rounded-pill px-3"><b>+ Add</b></a>
+               </td>
+            </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   {% else %}
+      <h5 class="text-center text-secondary my-5">
+         {% if comp_id %}
+            There are no stores that sell this component
+         {% endif %}
+      </h5>
+   {% endif %}
+
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+   $(document).ready(function () {
+      $("#comp").change(function () {
+         var component_id = $(this).val();
+         var url = "/pc/{{pc_id}}/add/{{name_component}}/" + component_id;
+         window.location.replace(url);
+      });
+      $("#comp").val('{{comp_id}}');
+   });
+</script>
+{% endblock %}
