@@ -25,18 +25,18 @@ class Pc(models.Model):
 
 class Pc_cpu(models.Model):
     pc = models.ForeignKey(Pc, on_delete=models.CASCADE)
-    store_cpu = models.ForeignKey(Store_cpu, on_delete=models.CASCADE)
+    store = models.ForeignKey(Store_cpu, on_delete=models.CASCADE)
     
     class Meta:
         verbose_name = 'PC CPU'
         verbose_name_plural = 'PC CPUs'
 
     def __str__(self):
-        return "{} - {} ({})".format(self.pc, self.store_cpu.cpu, self.store_cpu.store)
+        return "{} - {} ({})".format(self.pc, self.store.cpu, self.store.store)
 
 class Pc_gpu(models.Model):
     pc = models.ForeignKey(Pc, on_delete=models.CASCADE)
-    store_gpu = models.ForeignKey(Store_gpu, on_delete=models.CASCADE)
+    store = models.ForeignKey(Store_gpu, on_delete=models.CASCADE)
     
     class Meta:
         verbose_name = 'PC GPU'
@@ -44,11 +44,11 @@ class Pc_gpu(models.Model):
         # ordering = ['gpu']
 
     def __str__(self):
-        return "{} - {} ({})".format(self.pc, self.store_gpu.gpu, self.store_cpu.store)
+        return "{} - {} ({})".format(self.pc, self.store.gpu, self.store.store)
 
 class Pc_board(models.Model):
     pc = models.ForeignKey(Pc, on_delete=models.CASCADE)
-    store_board = models.ForeignKey(Store_board, on_delete=models.CASCADE)
+    store = models.ForeignKey(Store_board, on_delete=models.CASCADE)
     
     class Meta:
         verbose_name = 'PC Board'
@@ -56,11 +56,11 @@ class Pc_board(models.Model):
         # ordering = ['board']
 
     def __str__(self):
-        return "{} - {} ({})".format(self.pc, self.store_board.board, self.store_board.store)
+        return "{} - {} ({})".format(self.pc, self.store.board, self.store.store)
 
 class Pc_ram(models.Model):
     pc = models.ForeignKey(Pc, on_delete=models.CASCADE)
-    store_ram = models.ForeignKey(Store_ram, on_delete=models.CASCADE)
+    store = models.ForeignKey(Store_ram, on_delete=models.CASCADE)
     
     class Meta:
         verbose_name = 'PC RAM'
@@ -68,11 +68,11 @@ class Pc_ram(models.Model):
         # ordering = ['ram']
 
     def __str__(self):
-        return "{} - {} ({})".format(self.pc, self.store_ram.ram, self.store_ram.store)
+        return "{} - {} ({})".format(self.pc, self.store.ram, self.store.store)
 
 class Pc_storage(models.Model):
     pc = models.ForeignKey(Pc, on_delete=models.CASCADE)
-    store_storage = models.ForeignKey(Store_storage, on_delete=models.CASCADE)
+    store = models.ForeignKey(Store_storage, on_delete=models.CASCADE)
     
     class Meta:
         verbose_name = 'PC Storage'
@@ -80,11 +80,11 @@ class Pc_storage(models.Model):
         # ordering = ['storage']
 
     def __str__(self):
-        return "{} - {} ({})".format(self.pc, self.store_storage.storage, self.store_storage.store)
+        return "{} - {} ({})".format(self.pc, self.store.storage, self.store.store)
 
 class Pc_psu(models.Model):
     pc = models.ForeignKey(Pc, on_delete=models.CASCADE)
-    store_psu = models.ForeignKey(Store_psu, on_delete=models.CASCADE)
+    store = models.ForeignKey(Store_psu, on_delete=models.CASCADE)
     
     class Meta:
         verbose_name = 'PC PSU'
@@ -92,11 +92,11 @@ class Pc_psu(models.Model):
         # ordering = ['psu']
 
     def __str__(self):
-        return "{} - {} ({})".format(self.pc, self.store_psu.psu, self.store_psu.store)
+        return "{} - {} ({})".format(self.pc, self.store.psu, self.store.store)
 
 class Pc_case(models.Model):
     pc = models.ForeignKey(Pc, on_delete=models.CASCADE)
-    store_case = models.ForeignKey(Store_case, on_delete=models.CASCADE)
+    store = models.ForeignKey(Store_case, on_delete=models.CASCADE)
     
     class Meta:
         verbose_name = 'PC Case'
@@ -104,4 +104,4 @@ class Pc_case(models.Model):
         # ordering = ['case']
 
     def __str__(self):
-        return "{} - {} ({})".format(self.pc, self.store_case.case, self.store_case.store)
+        return "{} - {} ({})".format(self.pc, self.store.case, self.store.store)

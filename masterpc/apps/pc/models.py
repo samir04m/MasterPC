@@ -65,7 +65,7 @@ class Gpu(models.Model):
         verbose_name_plural = 'GPUs'
 
     def __str__(self):
-        return "{} {} {} - {}GB".format(self.manufacturer.name, self.serie, self.model, self.vram_size)
+        return "{} {} {} ({}GB)".format(self.manufacturer.name, self.serie, self.model, self.vram_size)
 
 class Board(models.Model):
     manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
