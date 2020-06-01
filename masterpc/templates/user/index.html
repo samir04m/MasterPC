@@ -37,13 +37,22 @@
               </h5>
               <div class="collapse" id="collapse_{{pc.id}}">
                 <p class="text-truncate mb-0 small">
-                  CPU: {{pc.cpu.first.cpu}} <br>
-                  GPU: {{pc.gpu.first.gpu}} <br>
-                  Board: {{pc.board.first.board}}<br>
-                  RAM: {{pc.ram.first.ram}} <br>
-                  Disk:  <br>
-                  PSU: {{pc.psu.first.psu}} <br>
-                  Case: {{pc.case.first.case}} <br>
+                  <b>CPU:</b> {{pc.cpu.first.cpu}} <br>
+                  <b>GPU:</b> {{pc.gpu.first.gpu}} <br>
+                  <b>Board:</b> {{pc.board.first.board}}<br>
+                  <b>RAM:</b> {{pc.ram.first.ram}} <br>
+                  <b>PSU:</b> {{pc.psu.first.psu}} <br>
+                  <b>Case:</b> {{pc.case.first.case}} <br>
+                  <b>Storage:</b> 
+                  {% if pc.storage.count > 1 %}
+                    <ul class="small">
+                      {% for s in pc.storage.all %}
+                        <li>{{s.storage}}</li>
+                      {% endfor %}
+                    </ul>
+                  {% else %}
+                    {{pc.storage.first.storage}} <br>
+                  {% endif %}
                 </p>
                 <div class="text-right">
                   <a href="{% url 'update_pc' pc.id %}" class="btn btn-outline-dark rounded-pill btn-sm px-3">
@@ -61,7 +70,7 @@
               <span class="m-2">Presupuesto:
                 <span> {% if pc.budget %}  $ {{pc.budget}}  {% else  %} - {% endif %} </span>
               </span>
-              <span class="m-2 font-weight-bold ">Costo: $ 2.000.000</span>
+              <span class="m-2 font-weight-bold ">Costo: -</span>
             </div>
           </div>
           

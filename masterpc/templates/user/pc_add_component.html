@@ -32,7 +32,7 @@
                <td>{{store.store.name}}</td>
                <td><a href="{{store.url}}" class="" target="_blank"> Open <i class="fas fa-external-link-alt"></i></a></td>
                <td class="text-center">
-                  <a href="{% url 'add_component' pc_id name_component comp_id store.id %}" class="btn btn-warning btn-sm rounded-pill px-3"><b>+ Add</b></a>
+                  <a href="{% url 'add_component' pc_id name_component store.id %}" class="btn btn-warning btn-sm rounded-pill px-3"><b>+ Add</b></a>
                </td>
             </tr>
             {% endfor %}

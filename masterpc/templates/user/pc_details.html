@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% load sum %}
 
 {% block title %}PC Details{% endblock %}
 
@@ -8,7 +9,8 @@
     <div class="col-sm-12 col-lg-10">
       <h3 class="text-warning">{{ pc.name }}</h3>
       <div class="text-light">
-        Budget: $ {{ pc.budget }}
+        Budget: {% if pc.budget %} $ {{pc.budget}} {% else  %} 
+        <span class="text-muted">Undefined</span> {% endif %}
       </div>
       <!-- <hr class="bg-secondary"> -->
       <h4 class="text-center text-light my-4">
@@ -154,28 +156,32 @@
           </tr>
 
           <tr>
-            <td class="text-muted">Storage</td>
-            {% if pc.storage.count %}
-            <td>{{ pc.storage.first.storage }}</td>
-            <td>$ {{pc.storage.first.price}}</td>
-            <td><a href="{{pc.storage.first.url}}" target="_blank">{{pc.storage.first.store}}</a></td>
-            <td class="text-right">
-              <a href="{% url 'select_component' pc.id 'Storage' pc.storage.first.storage.id %}"
-                class="btn btn-outline-secondary rounded-pill btn-sm pl-2">
-                <i class="fas fa-sync"></i> Change </a>
-            </td>
-            {% else %}
-            <td>
-              <a href="{% url 'select_component' pc.id 'Storage' 0 %}" class="btn btn-outline-light rounded-pill btn-sm px-3">+
-                Add</a>
-            </td>
-            <td></td>
-            <td></td>
-            <td></td>
-            {% endif %}
+            <td class="text-muted" rowspan="{{ pc.storage.count|sum:2 }}">Storage</td>
           </tr>
+          {% if pc.storage.count %}
+            {% for s in pc.storage.all %}
+            <tr>
+              <td>{{ s }}</td>
+              <td>$ {{s.price}}</td>
+              <td><a href="{{s.url}}" target="_blank">{{s.store}}</a></td>
+              <td class="text-right">
+                <a href="{% url 'remove_component' pc.id 'Storage' s.id %}"
+                  class="btn btn-outline-danger rounded-pill btn-sm pl-2">
+                  <i class="fas fa-times"></i> Remove</a>
+              </td>
 
-
+            </tr>
+            {% endfor %}
+          {% endif %}
+          <tr>
+            <td>
+              <a href="{% url 'select_component' pc.id 'Storage' 0 %}" 
+              class="btn btn-outline-light rounded-pill btn-sm px-3">+ Add</a>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
 
         </tbody>
       </table>
@@ -187,4 +193,12 @@
   </div>
 
 </div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+  $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
 {% endblock %}

@@ -18,6 +18,7 @@ class Index(View):
         return render(request, 'user/index.html', locals())
 
 def select_component(request, pc_id, name_component, comp_id):
+    Model = None
     if name_component == 'CPU': Model = Cpu
     elif name_component == 'GPU': Model = Gpu
     elif name_component == 'Board': Model = Board
@@ -26,28 +27,32 @@ def select_component(request, pc_id, name_component, comp_id):
     elif name_component == 'PSU': Model = Psu
     elif name_component == 'Case': Model = Case
 
-    objects = Model.objects.all()
+    if Model:
+        objects = Model.objects.all()
 
-    if comp_id != 0:
-        if name_component == 'CPU':
-            stores = Store_cpu.objects.filter(cpu__id = comp_id, is_available = 1).order_by('price')
-        elif name_component == 'GPU':
-            stores = Store_gpu.objects.filter(gpu__id = comp_id, is_available = 1).order_by('price')
-        elif name_component == 'Board':
-            stores = Store_board.objects.filter(board__id = comp_id, is_available = 1).order_by('price')
-        elif name_component == 'RAM':
-            stores = Store_ram.objects.filter(ram__id = comp_id, is_available = 1).order_by('price')
-        elif name_component == 'Storage':
-            stores = Store_storage.objects.filter(storage__id = comp_id, is_available = 1).order_by('price')
-        elif name_component == 'PSU':
-            stores = Store_psu.objects.filter(psu__id = comp_id, is_available = 1).order_by('price')
-        elif name_component == 'Case':
-            stores = Store_case.objects.filter(case__id = comp_id, is_available = 1).order_by('price')        
+        if comp_id != 0:
+            if name_component == 'CPU':
+                stores = Store_cpu.objects.filter(cpu__id = comp_id, is_available = 1).order_by('price')
+            elif name_component == 'GPU':
+                stores = Store_gpu.objects.filter(gpu__id = comp_id, is_available = 1).order_by('price')
+            elif name_component == 'Board':
+                stores = Store_board.objects.filter(board__id = comp_id, is_available = 1).order_by('price')
+            elif name_component == 'RAM':
+                stores = Store_ram.objects.filter(ram__id = comp_id, is_available = 1).order_by('price')
+            elif name_component == 'Storage':
+                stores = Store_storage.objects.filter(storage__id = comp_id, is_available = 1).order_by('price')
+            elif name_component == 'PSU':
+                stores = Store_psu.objects.filter(psu__id = comp_id, is_available = 1).order_by('price')
+            elif name_component == 'Case':
+                stores = Store_case.objects.filter(case__id = comp_id, is_available = 1).order_by('price')        
         
-    return render(request, 'user/pc_add_component.html', locals())
+        return render(request, 'user/pc_add_component.html', locals())
+    else:
+        return redirect('detail_pc', pc_id)
 
 
-def add_component(request, pc_id, name_component, comp_id, store_id):
+def add_component(request, pc_id, name_component, store_id):
+    Model = None
     if name_component == 'CPU': Model = Pc_cpu
     elif name_component == 'GPU': Model = Pc_gpu
     elif name_component == 'Board': Model = Pc_board
@@ -56,13 +61,25 @@ def add_component(request, pc_id, name_component, comp_id, store_id):
     elif name_component == 'PSU': Model = Pc_psu
     elif name_component == 'Case': Model = Pc_case
 
-    comp = Model.objects.filter(pc_id=pc_id).first()
+    if Model:
+        if name_component == 'Storage':
+            comp = Model(pc_id=pc_id, store_id=store_id)
+        else:
+            comp = Model.objects.filter(pc_id=pc_id).first()
+            if comp:
+                comp.store_id = store_id
+            else:
+                comp = Model(pc_id=pc_id, store_id=store_id)
+        comp.save()
 
-    if comp:
-        comp.store_id = store_id
-    else:
-        comp = Model(pc_id=pc_id, store_id=store_id)
-    comp.save()
+    return redirect('detail_pc', pc_id)
+
+def remove_component(request, pc_id, name_component, store_id):
+    Model = None
+    if name_component == 'Storage': Model = Pc_storage
+
+    if Model:
+        comp = Model.objects.filter(pc_id=pc_id, store_id=store_id).first().delete()
 
     return redirect('detail_pc', pc_id)
 

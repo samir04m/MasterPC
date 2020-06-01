@@ -9,7 +9,8 @@ urlpatterns = [
     path('pc/<int:pk>/', DetailPc.as_view(), name='detail_pc'),
     
     path('pc/<int:pc_id>/add/<str:name_component>/<int:comp_id>', select_component, name='select_component'),
-    path('pc-add-component/<int:pc_id>/<str:name_component>/<int:comp_id>/<int:store_id>', add_component, name='add_component'),
+    path('pc-add-component/<int:pc_id>/<str:name_component>/<int:store_id>', add_component, name='add_component'),
+    path('pc-remove-component/<int:pc_id>/<str:name_component>/<int:store_id>', remove_component, name='remove_component'),
 
     path('signup/', UserRegister.as_view(), name='signup'),
     path('register-success/', register_success, name='register_success'),
