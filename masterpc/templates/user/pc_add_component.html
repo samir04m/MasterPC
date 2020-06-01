@@ -17,22 +17,24 @@
    {% if stores %}
       <h3 class="text-center text-light">Select a Store</h3>
       <table class="table table-dark">
-         <thead>
+         <thead class="bg-secondary">
             <tr>
-               <th>Price</th>
                <th>Store</th>
-               <th>URL</th>
+               <th>Price</th>
                <th>Add to PC</th>
             </tr>
          </thead>
          <tbody>
             {% for store in stores %}
             <tr>
+               <td>
+                  <a href="{{store.url}}" class="text-light" target="_blank"> {{store.store.name}} 
+                  <i class="fas fa-external-link-alt"></i></a>
+               </td>
                <td>$ {{store.price}}</td>
-               <td>{{store.store.name}}</td>
-               <td><a href="{{store.url}}" class="" target="_blank"> Open <i class="fas fa-external-link-alt"></i></a></td>
                <td class="text-center">
-                  <a href="{% url 'add_component' pc_id name_component store.id %}" class="btn btn-warning btn-sm rounded-pill px-3"><b>+ Add</b></a>
+                  <a href="{% url 'add_component' pc_id name_component store.id %}" 
+                  class="btn btn-warning btn-sm rounded-pill px-3"><b>+Add</b></a>
                </td>
             </tr>
             {% endfor %}

@@ -16,6 +16,6 @@ main {
   font-family: 'LobsterTwo';
   src: URL('../fonts/LobsterTwo-Regular.ttf') format('truetype');
 }
-.lobster {
-	font-family: 'LobsterTwo' !important;
-}
+.lobster { font-family: 'LobsterTwo' !important; }
+
+.img-store { height: 40px; border-radius: 5px; }

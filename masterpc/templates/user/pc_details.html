@@ -27,6 +27,7 @@
           <a href="" class="text-light mx-1"><i class="fas fa-align-justify"></i></a>
         </div>
       </h4>
+      <div class="table-responsive">
       <table class="table text-light">
         <tbody>
           <tr>
@@ -34,11 +35,16 @@
             {% if pc.cpu.count %}
               <td>{{ pc.cpu.first.cpu }}</td>
               <td>$ {{pc.cpu.first.price}}</td>
-              <td><a href="{{pc.cpu.first.url}}" target="_blank">{{pc.cpu.first.store}}</a></td>
+              <td class="py-2">
+                <a href="{{pc.cpu.first.url}}" class="text-light" target="_blank"> 
+                  <img src="{{ pc.cpu.first.store.logo_url }}" class="img-store">
+                  <span class="d-none d-lg-inline">{{pc.cpu.first.store}}</span>
+                </a>
+              </td>
               <td class="text-right">
                 <a href="{% url 'select_component' pc.id 'CPU' pc.cpu.first.cpu.id %}"
                   class="btn btn-outline-secondary rounded-pill btn-sm pl-2">
-                    <i class="fas fa-sync"></i> Change</a>
+                    <i class="fas fa-sync"></i> <span class="d-none d-lg-inline">Change</span> </a>
               </td>
             {% else %}
               <td>
@@ -56,11 +62,16 @@
             {% if pc.gpu.count %}
               <td>{{ pc.gpu.first.gpu }}</td>
               <td>$ {{pc.gpu.first.price}}</td>
-              <td><a href="{{pc.gpu.first.url}}" target="_blank">{{pc.gpu.first.store}}</a></td>
+              <td class="py-2">
+                <a href="{{pc.gpu.first.url}}" class="text-light" target="_blank">
+                  <img src="{{ pc.gpu.first.store.logo_url }}" class="img-store">
+                  <span class="d-none d-lg-inline">{{pc.gpu.first.store}}</span>
+                </a>
+              </td>
               <td class="text-right">
                 <a href="{% url 'select_component' pc.id 'GPU' pc.gpu.first.gpu.id %}" 
                   class="btn btn-outline-secondary rounded-pill btn-sm pl-2">
-                    <i class="fas fa-sync"></i> Change </a>
+                    <i class="fas fa-sync"></i> <span class="d-none d-lg-inline">Change</span> </a>
               </td>
             {% else %}
               <td>
@@ -78,11 +89,16 @@
             {% if pc.board.count %}
             <td>{{ pc.board.first.board }}</td>
             <td>$ {{pc.board.first.price}}</td>
-            <td><a href="{{pc.board.first.url}}" target="_blank">{{pc.board.first.store}}</a></td>
+            <td class="py-2">
+              <a href="{{pc.board.first.url}}" class="text-light" target="_blank">
+                <img src="{{ pc.board.first.store.logo_url }}" class="img-store">
+                <span class="d-none d-lg-inline">{{pc.board.first.store}}</span>
+              </a>
+            </td>
             <td class="text-right">
               <a href="{% url 'select_component' pc.id 'Board' pc.board.first.board.id %}"
                 class="btn btn-outline-secondary rounded-pill btn-sm pl-2">
-                <i class="fas fa-sync"></i> Change </a>
+                <i class="fas fa-sync"></i> <span class="d-none d-lg-inline">Change</span> </a>
             </td>
             {% else %}
             <td>
@@ -100,11 +116,16 @@
             {% if pc.ram.count %}
             <td>{{ pc.ram.first.ram }}</td>
             <td>$ {{pc.ram.first.price}}</td>
-            <td><a href="{{pc.ram.first.url}}" target="_blank">{{pc.ram.first.store}}</a></td>
+            <td class="py-2">
+              <a href="{{pc.ram.first.url}}" class="text-light" target="_blank">
+                <img src="{{ pc.ram.first.store.logo_url }}" class="img-store">
+                <span class="d-none d-lg-inline">{{pc.ram.first.store}}</span>
+              </a>
+            </td>
             <td class="text-right">
               <a href="{% url 'select_component' pc.id 'RAM' pc.ram.first.ram.id %}"
                 class="btn btn-outline-secondary rounded-pill btn-sm pl-2">
-                <i class="fas fa-sync"></i> Change </a>
+                <i class="fas fa-sync"></i> <span class="d-none d-lg-inline">Change</span> </a>
             </td>
             {% else %}
             <td>
@@ -122,11 +143,16 @@
             {% if pc.psu.count %}
             <td>{{ pc.psu.first.psu }}</td>
             <td>$ {{pc.psu.first.price}}</td>
-            <td><a href="{{pc.psu.first.url}}" target="_blank">{{pc.psu.first.store}}</a></td>
+            <td class="py-2">
+              <a href="{{pc.psu.first.url}}" class="text-light" target="_blank">
+                <img src="{{ pc.psu.first.store.logo_url }}" class="img-store">
+                <span class="d-none d-lg-inline">{{pc.psu.first.store}}</span>
+              </a>
+            </td>
             <td class="text-right">
               <a href="{% url 'select_component' pc.id 'PSU' pc.psu.first.psu.id %}"
                 class="btn btn-outline-secondary rounded-pill btn-sm pl-2">
-                <i class="fas fa-sync"></i> Change </a>
+                <i class="fas fa-sync"></i> <span class="d-none d-lg-inline">Change</span> </a>
             </td>
             {% else %}
             <td>
@@ -144,11 +170,16 @@
             {% if pc.case.count %}
             <td>{{ pc.case.first.case }}</td>
             <td>$ {{pc.case.first.price}}</td>
-            <td><a href="{{pc.case.first.url}}" target="_blank">{{pc.case.first.store}}</a></td>
+            <td class="py-2">
+              <a href="{{pc.case.first.url}}" class="text-light" target="_blank">
+                <img src="{{ pc.case.first.store.logo_url }}" class="img-store">
+                <span class="d-none d-lg-inline">{{pc.case.first.store}}</span>
+              </a>
+            </td>
             <td class="text-right">
               <a href="{% url 'select_component' pc.id 'Case' pc.case.first.case.id %}"
                 class="btn btn-outline-secondary rounded-pill btn-sm pl-2">
-                <i class="fas fa-sync"></i> Change </a>
+                <i class="fas fa-sync"></i> <span class="d-none d-lg-inline">Change</span> </a>
             </td>
             {% else %}
             <td>
@@ -169,11 +200,16 @@
             <tr>
               <td>{{ s }}</td>
               <td>$ {{s.price}}</td>
-              <td><a href="{{s.url}}" target="_blank">{{s.store}}</a></td>
+              <td class="py-2">
+                <a href="{{s.url}}" class="text-light" target="_blank">
+                  <img src="{{ s.store.logo_url }}" class="img-store">
+                  <span class="d-none d-lg-inline">{{s.store}}</span>
+                </a>
+              </td>
               <td class="text-right">
                 <a href="{% url 'remove_component' pc.id 'Storage' s.id %}"
                   class="btn btn-outline-danger rounded-pill btn-sm pl-2">
-                  <i class="fas fa-times"></i> Remove</a>
+                  <i class="fas fa-times"></i> <span class="d-none d-lg-inline">Remove</span></a>
               </td>
 
             </tr>
@@ -191,6 +227,7 @@
 
         </tbody>
       </table>
+      </div>
 
 
 
