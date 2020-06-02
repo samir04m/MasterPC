@@ -1,6 +1,6 @@
 {% extends 'base/base.html' %}
-{% load sum %}
 {% load cost %}
+{% load textcolor %}
 
 {% block title %}PC Details{% endblock %}
 
@@ -19,216 +19,18 @@
         </div>
       </div>
       <!-- <hr class="bg-secondary"> -->
-      <h4 class="text-center text-light my-4">
+      <h4 class="text-center text-light py-4">
         Components
         <div class="float-right">
-          <a href="" class="text-light mx-1"><i class="fas fa-list"></i></a>
-          <a href="" class="text-light mx-1"><i class="fas fa-th"></i></a>
-          <a href="" class="text-light mx-1"><i class="fas fa-align-justify"></i></a>
+          <a href="{% url 'change_view' pc.id 'list' %}" class="{{ pc.view|textcolor:'list' }} mx-1"><i class="fas fa-list"></i></a>
+          <a href="{% url 'change_view' pc.id 'grid' %}" class="{{ pc.view|textcolor:'grid' }} mx-1"><i class="fas fa-th"></i></a>
+          <a href="{% url 'change_view' pc.id 'table' %}" class="{{ pc.view|textcolor:'table' }} mx-1"><i class="fas fa-align-justify"></i></a>
         </div>
       </h4>
-      <div class="table-responsive">
-      <table class="table text-light">
-        <tbody>
-          <tr>
-            <td class="text-muted">CPU</td>
-            {% if pc.cpu.count %}
-              <td>{{ pc.cpu.first.cpu }}</td>
-              <td>$ {{pc.cpu.first.price}}</td>
-              <td class="py-2">
-                <a href="{{pc.cpu.first.url}}" class="text-light" target="_blank"> 
-                  <img src="{{ pc.cpu.first.store.logo_url }}" class="img-store">
-                  <span class="d-none d-lg-inline">{{pc.cpu.first.store}}</span>
-                </a>
-              </td>
-              <td class="text-right">
-                <a href="{% url 'select_component' pc.id 'CPU' pc.cpu.first.cpu.id %}"
-                  class="btn btn-outline-secondary rounded-pill btn-sm pl-2">
-                    <i class="fas fa-sync"></i> <span class="d-none d-lg-inline">Change</span> </a>
-              </td>
-            {% else %}
-              <td>
-                <a href="{% url 'select_component' pc.id 'CPU' 0 %}" 
-                class="btn btn-outline-light rounded-pill btn-sm px-3">+ Add</a>
-              </td>
-              <td></td>
-              <td></td>
-              <td></td>
-            {% endif %}
-          </tr>
 
-          <tr>
-            <td class="text-muted">GPU</td>
-            {% if pc.gpu.count %}
-              <td>{{ pc.gpu.first.gpu }}</td>
-              <td>$ {{pc.gpu.first.price}}</td>
-              <td class="py-2">
-                <a href="{{pc.gpu.first.url}}" class="text-light" target="_blank">
-                  <img src="{{ pc.gpu.first.store.logo_url }}" class="img-store">
-                  <span class="d-none d-lg-inline">{{pc.gpu.first.store}}</span>
-                </a>
-              </td>
-              <td class="text-right">
-                <a href="{% url 'select_component' pc.id 'GPU' pc.gpu.first.gpu.id %}" 
-                  class="btn btn-outline-secondary rounded-pill btn-sm pl-2">
-                    <i class="fas fa-sync"></i> <span class="d-none d-lg-inline">Change</span> </a>
-              </td>
-            {% else %}
-              <td>
-                <a href="{% url 'select_component' pc.id 'GPU' 0 %}" 
-                  class="btn btn-outline-light rounded-pill btn-sm px-3">+ Add</a>
-              </td>
-              <td></td>
-              <td></td>
-              <td></td>
-            {% endif %}
-          </tr>
-
-          <tr>
-            <td class="text-muted">Board</td>
-            {% if pc.board.count %}
-            <td>{{ pc.board.first.board }}</td>
-            <td>$ {{pc.board.first.price}}</td>
-            <td class="py-2">
-              <a href="{{pc.board.first.url}}" class="text-light" target="_blank">
-                <img src="{{ pc.board.first.store.logo_url }}" class="img-store">
-                <span class="d-none d-lg-inline">{{pc.board.first.store}}</span>
-              </a>
-            </td>
-            <td class="text-right">
-              <a href="{% url 'select_component' pc.id 'Board' pc.board.first.board.id %}"
-                class="btn btn-outline-secondary rounded-pill btn-sm pl-2">
-                <i class="fas fa-sync"></i> <span class="d-none d-lg-inline">Change</span> </a>
-            </td>
-            {% else %}
-            <td>
-              <a href="{% url 'select_component' pc.id 'Board' 0 %}" class="btn btn-outline-light rounded-pill btn-sm px-3">+
-                Add</a>
-            </td>
-            <td></td>
-            <td></td>
-            <td></td>
-            {% endif %}
-          </tr>
-
-          <tr>
-            <td class="text-muted">RAM</td>
-            {% if pc.ram.count %}
-            <td>{{ pc.ram.first.ram }}</td>
-            <td>$ {{pc.ram.first.price}}</td>
-            <td class="py-2">
-              <a href="{{pc.ram.first.url}}" class="text-light" target="_blank">
-                <img src="{{ pc.ram.first.store.logo_url }}" class="img-store">
-                <span class="d-none d-lg-inline">{{pc.ram.first.store}}</span>
-              </a>
-            </td>
-            <td class="text-right">
-              <a href="{% url 'select_component' pc.id 'RAM' pc.ram.first.ram.id %}"
-                class="btn btn-outline-secondary rounded-pill btn-sm pl-2">
-                <i class="fas fa-sync"></i> <span class="d-none d-lg-inline">Change</span> </a>
-            </td>
-            {% else %}
-            <td>
-              <a href="{% url 'select_component' pc.id 'RAM' 0 %}" class="btn btn-outline-light rounded-pill btn-sm px-3">+
-                Add</a>
-            </td>
-            <td></td>
-            <td></td>
-            <td></td>
-            {% endif %}
-          </tr>
-
-          <tr>
-            <td class="text-muted">PSU</td>
-            {% if pc.psu.count %}
-            <td>{{ pc.psu.first.psu }}</td>
-            <td>$ {{pc.psu.first.price}}</td>
-            <td class="py-2">
-              <a href="{{pc.psu.first.url}}" class="text-light" target="_blank">
-                <img src="{{ pc.psu.first.store.logo_url }}" class="img-store">
-                <span class="d-none d-lg-inline">{{pc.psu.first.store}}</span>
-              </a>
-            </td>
-            <td class="text-right">
-              <a href="{% url 'select_component' pc.id 'PSU' pc.psu.first.psu.id %}"
-                class="btn btn-outline-secondary rounded-pill btn-sm pl-2">
-                <i class="fas fa-sync"></i> <span class="d-none d-lg-inline">Change</span> </a>
-            </td>
-            {% else %}
-            <td>
-              <a href="{% url 'select_component' pc.id 'PSU' 0 %}" class="btn btn-outline-light rounded-pill btn-sm px-3">+
-                Add</a>
-            </td>
-            <td></td>
-            <td></td>
-            <td></td>
-            {% endif %}
-          </tr>
-
-          <tr>
-            <td class="text-muted">Case</td>
-            {% if pc.case.count %}
-            <td>{{ pc.case.first.case }}</td>
-            <td>$ {{pc.case.first.price}}</td>
-            <td class="py-2">
-              <a href="{{pc.case.first.url}}" class="text-light" target="_blank">
-                <img src="{{ pc.case.first.store.logo_url }}" class="img-store">
-                <span class="d-none d-lg-inline">{{pc.case.first.store}}</span>
-              </a>
-            </td>
-            <td class="text-right">
-              <a href="{% url 'select_component' pc.id 'Case' pc.case.first.case.id %}"
-                class="btn btn-outline-secondary rounded-pill btn-sm pl-2">
-                <i class="fas fa-sync"></i> <span class="d-none d-lg-inline">Change</span> </a>
-            </td>
-            {% else %}
-            <td>
-              <a href="{% url 'select_component' pc.id 'Case' 0 %}" class="btn btn-outline-light rounded-pill btn-sm px-3">+
-                Add</a>
-            </td>
-            <td></td>
-            <td></td>
-            <td></td>
-            {% endif %}
-          </tr>
-
-          <tr>
-            <td class="text-muted" rowspan="{{ pc.storage.count|sum:2 }}">Storage</td>
-          </tr>
-          {% if pc.storage.count %}
-            {% for s in pc.storage.all %}
-            <tr>
-              <td>{{ s }}</td>
-              <td>$ {{s.price}}</td>
-              <td class="py-2">
-                <a href="{{s.url}}" class="text-light" target="_blank">
-                  <img src="{{ s.store.logo_url }}" class="img-store">
-                  <span class="d-none d-lg-inline">{{s.store}}</span>
-                </a>
-              </td>
-              <td class="text-right">
-                <a href="{% url 'remove_component' pc.id 'Storage' s.id %}"
-                  class="btn btn-outline-danger rounded-pill btn-sm pl-2">
-                  <i class="fas fa-times"></i> <span class="d-none d-lg-inline">Remove</span></a>
-              </td>
-
-            </tr>
-            {% endfor %}
-          {% endif %}
-          <tr>
-            <td>
-              <a href="{% url 'select_component' pc.id 'Storage' 0 %}" 
-              class="btn btn-outline-light rounded-pill btn-sm px-3">+ Add</a>
-            </td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-
-        </tbody>
-      </table>
-      </div>
-
+      {% with "user/component_view/"|add:pc.view|add:".html" as template %}
+        {% include template %}
+      {% endwith %}
 
 
     </div>

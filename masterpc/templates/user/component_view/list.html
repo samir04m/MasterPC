@@ -1,0 +1,235 @@
+<hr class="bg-secondary my-1">
+<div class="row pt-lg-2">
+  <div class="col-sm-12 col-lg-2">
+    <span class="text-light">CPU</span>
+  </div>
+  <div class="col-sm-12 col-lg-10">
+    {% if pc.cpu.first %}
+    <div class="card mb-3 shadow">
+      <div class="row no-gutters">
+        <img src="{{ pc.cpu.first.cpu.img1_url }}" class="img-list">
+        <span class="card-body py-2">
+          <div class="mb-lg-2">
+            <a href="{{pc.cpu.first.cpu.manufacturer_website}}" target="_blank"
+              class="text-dark list-card-title text-break">{{pc.cpu.first.cpu}}</a>
+          </div>
+          <div class="list-card-price pb-3">
+            Price: $ {{ pc.cpu.first.price }} 
+            <a href="{{pc.cpu.first.url}}" target="_blank" 
+            class="text-dark">({{pc.cpu.first.store}})</a>
+          </div>
+          <div class="text-right list-button">
+            <a href="{% url 'select_component' pc.id 'CPU' pc.cpu.first.cpu.id %}"
+              class="btn btn-outline-secondary rounded-pill btn-sm pl-2">
+              <i class="fas fa-sync"></i> Change </a>
+          </div>
+        </span>
+      </div>
+    </div>
+    {% else %}
+      <a href="{% url 'select_component' pc.id 'CPU' 0 %}" 
+        class="btn btn-outline-light btn-block py-3 my-2">+Add</a>
+    {% endif %}
+  </div>
+</div>
+
+<hr class="bg-secondary my-1">
+<div class="row pt-lg-2">
+  <div class="col-sm-12 col-lg-2">
+    <span class="text-light">GPU</span>
+  </div>
+  <div class="col-sm-12 col-lg-10">
+    {% if pc.gpu.first %}
+    <div class="card mb-3 shadow">
+      <div class="row no-gutters">
+        <img src="{{ pc.gpu.first.gpu.img1_url }}" class="img-list">
+        <span class="card-body py-2">
+          <div class="mb-lg-2">
+            <a href="{{pc.gpu.first.gpu.manufacturer_website}}" target="_blank"
+              class="text-dark list-card-title text-break">{{pc.gpu.first.gpu}}</a>
+          </div>
+          <div class="list-card-price pb-3">
+            Price: $ {{ pc.gpu.first.price }}
+            <a href="{{pc.gpu.first.url}}" target="_blank" class="text-dark">({{pc.gpu.first.store}})</a>
+          </div>
+          <div class="text-right list-button">
+            <a href="{% url 'select_component' pc.id 'GPU' pc.gpu.first.gpu.id %}"
+              class="btn btn-outline-secondary rounded-pill btn-sm pl-2">
+              <i class="fas fa-sync"></i> Change </a>
+          </div>
+        </span>
+      </div>
+    </div>
+    {% else %}
+    <a href="{% url 'select_component' pc.id 'GPU' 0 %}" 
+      class="btn btn-outline-light btn-block py-3 my-2">+Add</a>
+    {% endif %}
+  </div>
+</div>
+
+<hr class="bg-secondary my-1">
+<div class="row pt-lg-2">
+  <div class="col-sm-12 col-lg-2">
+    <span class="text-light">Board</span>
+  </div>
+  <div class="col-sm-12 col-lg-10">
+    {% if pc.board.first %}
+    <div class="card mb-3 shadow">
+      <div class="row no-gutters">
+        <img src="{{ pc.board.first.board.img1_url }}" class="img-list">
+        <span class="card-body py-2">
+          <div class="mb-lg-2">
+            <a href="{{pc.board.first.board.manufacturer_website}}" target="_blank"
+              class="text-dark list-card-title text-break">{{pc.board.first.board}}</a>
+          </div>
+          <div class="list-card-price pb-3">
+            Price: $ {{ pc.board.first.price }}
+            <a href="{{pc.board.first.url}}" target="_blank" class="text-dark">({{pc.board.first.store}})</a>
+          </div>
+          <div class="text-right list-button">
+            <a href="{% url 'select_component' pc.id 'Board' pc.board.first.board.id %}"
+              class="btn btn-outline-secondary rounded-pill btn-sm pl-2">
+              <i class="fas fa-sync"></i> Change </a>
+          </div>
+        </span>
+      </div>
+    </div>
+    {% else %}
+    <a href="{% url 'select_component' pc.id 'Board' 0 %}" class="btn btn-outline-light btn-block py-3 my-2">+Add</a>
+    {% endif %}
+  </div>
+</div>
+
+<hr class="bg-secondary my-1">
+<div class="row pt-lg-2">
+  <div class="col-sm-12 col-lg-2">
+    <span class="text-light">RAM</span>
+  </div>
+  <div class="col-sm-12 col-lg-10">
+    {% if pc.ram.first %}
+    <div class="card mb-3 shadow">
+      <div class="row no-gutters">
+        <img src="{{ pc.ram.first.ram.img1_url }}" class="img-list">
+        <span class="card-body py-2">
+          <div class="mb-lg-2">
+            <a href="{{pc.ram.first.ram.manufacturer_website}}" target="_blank"
+              class="text-dark list-card-title text-break">{{pc.ram.first.ram}}</a>
+          </div>
+          <div class="list-card-price pb-3">
+            Price: $ {{ pc.ram.first.price }}
+            <a href="{{pc.ram.first.url}}" target="_blank" class="text-dark">({{pc.ram.first.store}})</a>
+          </div>
+          <div class="text-right list-button">
+            <a href="{% url 'select_component' pc.id 'RAM' pc.ram.first.ram.id %}"
+              class="btn btn-outline-secondary rounded-pill btn-sm pl-2">
+              <i class="fas fa-sync"></i> Change </a>
+          </div>
+        </span>
+      </div>
+    </div>
+    {% else %}
+    <a href="{% url 'select_component' pc.id 'RAM' 0 %}" class="btn btn-outline-light btn-block py-3 my-2">+Add</a>
+    {% endif %}
+  </div>
+</div>
+
+<hr class="bg-secondary my-1">
+<div class="row pt-lg-2">
+  <div class="col-sm-12 col-lg-2">
+    <span class="text-light">PSU</span>
+  </div>
+  <div class="col-sm-12 col-lg-10">
+    {% if pc.psu.first %}
+    <div class="card mb-3 shadow">
+      <div class="row no-gutters">
+        <img src="{{ pc.psu.first.psu.img1_url }}" class="img-list">
+        <span class="card-body py-2">
+          <div class="mb-lg-2">
+            <a href="{{pc.psu.first.psu.manufacturer_website}}" target="_blank"
+              class="text-dark list-card-title text-break">{{pc.psu.first.psu}}</a>
+          </div>
+          <div class="list-card-price pb-3">
+            Price: $ {{ pc.psu.first.price }}
+            <a href="{{pc.psu.first.url}}" target="_blank" class="text-dark">({{pc.psu.first.store}})</a>
+          </div>
+          <div class="text-right list-button">
+            <a href="{% url 'select_component' pc.id 'PSU' pc.psu.first.psu.id %}"
+              class="btn btn-outline-secondary rounded-pill btn-sm pl-2">
+              <i class="fas fa-sync"></i> Change </a>
+          </div>
+        </span>
+      </div>
+    </div>
+    {% else %}
+    <a href="{% url 'select_component' pc.id 'PSU' 0 %}" class="btn btn-outline-light btn-block py-3 my-2">+Add</a>
+    {% endif %}
+  </div>
+</div>
+
+<hr class="bg-secondary my-1">
+<div class="row pt-lg-2">
+  <div class="col-sm-12 col-lg-2">
+    <span class="text-light">Case</span>
+  </div>
+  <div class="col-sm-12 col-lg-10">
+    {% if pc.case.first %}
+    <div class="card mb-3 shadow">
+      <div class="row no-gutters">
+        <img src="{{ pc.case.first.case.img1_url }}" class="img-list">
+        <span class="card-body py-2">
+          <div class="mb-lg-2">
+            <a href="{{pc.case.first.case.manufacturer_website}}" target="_blank"
+              class="text-dark list-card-title text-break">{{pc.case.first.case}}</a>
+          </div>
+          <div class="list-card-price pb-3">
+            Price: $ {{ pc.case.first.price }}
+            <a href="{{pc.case.first.url}}" target="_blank" class="text-dark">({{pc.case.first.store}})</a>
+          </div>
+          <div class="text-right list-button">
+            <a href="{% url 'select_component' pc.id 'Case' pc.case.first.case.id %}"
+              class="btn btn-outline-secondary rounded-pill btn-sm pl-2">
+              <i class="fas fa-sync"></i> Change </a>
+          </div>
+        </span>
+      </div>
+    </div>
+    {% else %}
+    <a href="{% url 'select_component' pc.id 'Case' 0 %}" class="btn btn-outline-light btn-block py-3 my-2">+Add</a>
+    {% endif %}
+  </div>
+</div>
+
+<hr class="bg-secondary my-1">
+<div class="row pt-lg-2">
+  <div class="col-sm-12 col-lg-2">
+    <span class="text-light">Storage</span>
+  </div>
+  <div class="col-sm-12 col-lg-10">
+    {% if pc.storage.count %}
+      {% for s in pc.storage.all %}
+        <div class="card mb-3 shadow">
+          <div class="row no-gutters">
+            <img src="{{ s.storage.img1_url }}" class="img-list">
+            <span class="card-body py-2">
+              <div class="mb-lg-2">
+                <a href="{{s.storage.manufacturer_website}}" target="_blank"
+                  class="text-dark list-card-title text-break">{{s.storage}}</a>
+              </div>
+              <div class="list-card-price pb-3">
+                Price: $ {{ s.price }}
+                <a href="{{s.url}}" target="_blank" class="text-dark">({{s.store}})</a>
+              </div>
+              <div class="text-right list-button">
+                <a href="{% url 'remove_component' pc.id 'Storage' s.id %}"
+                  class="btn btn-outline-danger rounded-pill btn-sm pl-2">
+                  <i class="fas fa-times"></i> Remove </a>
+              </div>
+            </span>
+          </div>
+        </div>
+      {% endfor %}
+    {% endif %}
+      <a href="{% url 'select_component' pc.id 'Storage' 0 %}" 
+      class="btn btn-outline-light btn-block py-3 my-2">+Add</a>
+  </div>
+</div>

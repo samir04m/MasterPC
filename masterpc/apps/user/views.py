@@ -17,6 +17,48 @@ class Index(View):
         
         return render(request, 'user/index.html', locals())
 
+class UserRegister(View):
+    def get(self, request):
+        form = UserRegisterForm()
+        return render(request, 'registration/signup.html', locals())
+
+    def post(self, request):
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            user_data = form.save(commit=False)
+            user_data.save()
+            return render(request, 'registration/register_success.html', locals())
+        else:
+            return render(request, 'registration/signup.html', locals())
+
+def register_success(request):
+    return render(request, 'registration/register_success.html')
+
+class PcView(FormView, LoginRequiredMixin):
+    model = Pc
+    form_class = PcForm
+    template_name = 'user/pc_form.html'
+    success_url = reverse_lazy('index')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+class CreatePc(CreateView, PcView):
+    pass
+
+class UpdatePc(UpdateView, PcView):
+    pass
+
+class DeletePc(DeleteView):
+    model = Pc
+    success_url = reverse_lazy('index')
+
+class DetailPc(DetailView, LoginRequiredMixin):
+    model = Pc
+    template_name = 'user/pc_details.html'
+
+
 def select_component(request, pc_id, name_component, comp_id):
     Model = None
     if name_component == 'CPU': Model = Cpu
@@ -82,46 +124,10 @@ def remove_component(request, pc_id, name_component, store_id):
         comp = Model.objects.filter(pc_id=pc_id, store_id=store_id).first().delete()
 
     return redirect('detail_pc', pc_id)
-
-
-class PcView(FormView, LoginRequiredMixin):
-    model = Pc
-    form_class = PcForm
-    template_name = 'user/pc_form.html'
-    success_url = reverse_lazy('index')
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
-
-class CreatePc(CreateView, PcView):
-    pass
-
-class UpdatePc(UpdateView, PcView):
-    pass
-
-class DeletePc(DeleteView):
-    model = Pc
-    success_url = reverse_lazy('index')
-
-class DetailPc(DetailView, LoginRequiredMixin):
-    model = Pc
-    template_name = 'user/pc_details.html'    
-
-class UserRegister(View):
-
-    def get(self, request):
-        form = UserRegisterForm()
-        return render(request, 'registration/signup.html', locals())
-
-    def post(self, request):
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            user_data = form.save(commit=False)
-            user_data.save()
-            return render(request, 'registration/register_success.html', locals())
-        else:
-            return render(request, 'registration/signup.html', locals())
-
-def register_success(request):
-    return render(request, 'registration/register_success.html')
+    
+def change_view(request, pc_id, view):
+    pc = Pc.objects.get(id=pc_id)
+    if pc:
+        pc.view = view
+        pc.save()
+    return redirect('detail_pc', pc_id)

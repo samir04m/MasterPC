@@ -19,3 +19,20 @@ main {
 .lobster { font-family: 'LobsterTwo' !important; }
 
 .img-store { height: 40px; border-radius: 5px; }
+
+.img-list { height: 120px; }
+.list-card-title { font-size: 22px; font-weight: bold; }
+.list-card-price { font-size: 19px; }
+.list-button {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+	.img-list { height: 100px; }
+	.list-card-title { font-size: 16px; }
+	.list-card-price { font-size: 14px; }
+
+	
+}

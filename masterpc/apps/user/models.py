@@ -5,6 +5,7 @@ from apps.store.models import *
 class Pc(models.Model):
     name = models.CharField('PC name', max_length=50)
     budget = models.IntegerField('Budget', blank=True, null=True)
+    view = models.CharField(max_length=5, default='table')
     create_at = models.DateTimeField('Create at', auto_now=False, auto_now_add=True)
     user = models.ForeignKey(User, related_name='pcs', on_delete=models.CASCADE)
 
