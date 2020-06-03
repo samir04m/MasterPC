@@ -23,7 +23,6 @@
         Components
         <div class="float-right">
           <a href="{% url 'change_view' pc.id 'list' %}" class="{{ pc.view|textcolor:'list' }} mx-1"><i class="fas fa-list"></i></a>
-          <a href="{% url 'change_view' pc.id 'grid' %}" class="{{ pc.view|textcolor:'grid' }} mx-1"><i class="fas fa-th"></i></a>
           <a href="{% url 'change_view' pc.id 'table' %}" class="{{ pc.view|textcolor:'table' }} mx-1"><i class="fas fa-align-justify"></i></a>
         </div>
       </h4>
