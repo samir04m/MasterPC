@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404
 
 from django.views.generic import View, FormView, CreateView, UpdateView, DeleteView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -131,3 +132,8 @@ def change_view(request, pc_id, view):
         pc.view = view
         pc.save()
     return redirect('detail_pc', pc_id)
+
+def compare_pc(request):
+    pc1 = get_object_or_404(Pc, id=request.GET['pc1'])
+    pc2 = get_object_or_404(Pc, id=request.GET['pc2'])
+    return render(request, 'user/pc_compare.html', locals())
