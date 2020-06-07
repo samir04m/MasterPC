@@ -17,7 +17,7 @@
           <br> $ {{pc1|cost}}
         </td>
         <td class="text-center text-warning">VS
-          {% if pc1|cost|sum:pc2|cost > 1 %}
+          {% if pc1|cost and pc2|cost %}
             <p class="text-white-50 small m-0">
               $ {% difference pc1|cost pc2|cost 1 %} <br>
               {% difference pc1|cost pc2|cost 2 %} %
