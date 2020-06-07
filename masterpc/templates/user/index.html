@@ -84,6 +84,7 @@
       <div class="col-sm-12 offset-lg-1 col-lg-5">
         <div class="my-3">
           <h5 class="text-center text-warning">Compare PCs</h5>
+          {% if pcs.count >= 2 %}
           <form action="{% url 'compare_pc' %}" method="GET">
             <div class="form-group">
               <select name="pc1" id="pc1" class="form-control" required>
@@ -109,6 +110,11 @@
               </button>
             </div>
           </form>
+          {% else %}
+            <p class="text-center text-muted">
+              You must have at least 2 PCs to use this tool.
+            </p>
+          {% endif %}
           
         </div>
       </div>

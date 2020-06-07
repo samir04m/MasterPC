@@ -33,8 +33,10 @@
             {% for store in stores %}
             <tr>
                <td>
-                  <a href="{{store.url}}" class="text-light" target="_blank"> {{store.store.name}} 
-                  <i class="fas fa-external-link-alt"></i></a>
+                  <a href="{{store.url}}" class="text-light" target="_blank"> 
+                     <img src="{{ store.store.logo_url }}" class="img-store">
+                     {{store.store.name}} 
+                  </a>
                </td>
                <td>$ {{store.price}}</td>
                <td class="text-center">

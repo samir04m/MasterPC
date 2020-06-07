@@ -1,6 +1,8 @@
 {% extends 'base/base.html' %}
 {% load cost %}
 {% load difference %}
+{% load sum %}
+{% load totalstorage %}
 
 {% block title %}Compare PCs{% endblock %}
 
@@ -11,173 +13,275 @@
     <tbody>
       <tr>
         <td class="text-right text-light">
-          <a href="{% url 'detail_pc' pc1.id %}" class="text-light">{{pc1.name}}</a>
+          <a href="{% url 'detail_pc' pc1.id %}" class="text-light pc-name">{{pc1.name}}</a>
           <br> $ {{pc1|cost}}
         </td>
         <td class="text-center text-warning">VS
-          <p class="text-white-50 small m-0">
-            $ {% difference pc1|cost pc2|cost 1 %} <br>
-            {% difference pc1|cost pc2|cost 2 %} %
-          </p>
+          {% if pc1|cost|sum:pc2|cost > 1 %}
+            <p class="text-white-50 small m-0">
+              $ {% difference pc1|cost pc2|cost 1 %} <br>
+              {% difference pc1|cost pc2|cost 2 %} %
+            </p>
+          {% endif %}
         </td>
         <td class="text-left text-light">
-          <a href="{% url 'detail_pc' pc2.id %}" class="text-light">{{pc2.name}}</a>
+          <a href="{% url 'detail_pc' pc2.id %}" class="text-light pc-name">{{pc2.name}}</a>
           <br> $ {{pc2|cost}}
         </td>
       </tr>
       <tr>
         <td class="text-right text-light">
-          <a href="{{pc1.cpu.first.cpu.manufacturer_website}}" class="text-light">
-            {{pc1.cpu.first.cpu}}</a>
-          <p class="small m-0">
-            $ {{pc1.cpu.first.price}} <br>
-            (<a href="{{pc1.cpu.first.url}}" class="text-light">{{pc1.cpu.first.store}}</a>)
-          </p>
+          {% if pc1.cpu.first %}
+            <a href="{{pc1.cpu.first.cpu.manufacturer_website}}" class="text-light" target="_blank">
+              {{pc1.cpu.first.cpu}}</a>
+            <p class="small m-0">
+              $ {{pc1.cpu.first.price}} <br>
+              (<a href="{{pc1.cpu.first.url}}" class="text-light" target="_blank">{{pc1.cpu.first.store}}</a>)
+            </p>
+          {% else %}
+            <span class="text-white-50">Component not selected</span>
+          {% endif %}
         </td>
         <td class="text-center text-warning">
           CPU 
-          <p class="text-white-50 small m-0">
-            $ {% difference pc1.cpu.first.price pc2.cpu.first.price 1 %} <br>
-            {% difference pc1.cpu.first.price pc2.cpu.first.price 2 %} %
-          </p>
+          {% if pc1.cpu.first and pc2.cpu.first %}
+            <p class="text-white-50 small m-0">
+              $ {% difference pc1.cpu.first.price pc2.cpu.first.price 1 %} <br>
+              {% difference pc1.cpu.first.price pc2.cpu.first.price 2 %} %
+            </p>
+          {% endif %}
         </td>
         <td class="text-left text-light">
-          <a href="{{pc2.cpu.first.cpu.manufacturer_website}}" class="text-light">
-            {{pc2.cpu.first.cpu}}</a>
-          <p class="small m-0">
-            $ {{pc2.cpu.first.price}} <br>
-            (<a href="{{pc2.cpu.first.url}}" class="text-light">{{pc2.cpu.first.store}}</a>)
-          </p>
+          {% if pc2.cpu.first %}  
+            <a href="{{pc2.cpu.first.cpu.manufacturer_website}}" class="text-light" target="_blank">
+              {{pc2.cpu.first.cpu}}</a>
+            <p class="small m-0">
+              $ {{pc2.cpu.first.price}} <br>
+              (<a href="{{pc2.cpu.first.url}}" class="text-light" target="_blank">{{pc2.cpu.first.store}}</a>)
+            </p>
+          {% else %}
+            <span class="text-white-50">Component not selected</span>
+          {% endif %}
         </td>
       </tr>
 
       <tr>
         <td class="text-right text-light">
-          <a href="{{pc1.gpu.first.gpu.manufacturer_website}}" class="text-light">
-            {{pc1.gpu.first.gpu}}</a>
-          <p class="small m-0">
-            $ {{pc1.gpu.first.price}} <br>
-            (<a href="{{pc1.gpu.first.url}}" class="text-light">{{pc1.gpu.first.store}}</a>)
-          </p>
+          {% if pc1.gpu.first %}
+            <a href="{{pc1.gpu.first.gpu.manufacturer_website}}" class="text-light" target="_blank">
+              {{pc1.gpu.first.gpu}}</a>
+            <p class="small m-0">
+              $ {{pc1.gpu.first.price}} <br>
+              (<a href="{{pc1.gpu.first.url}}" class="text-light" target="_blank">{{pc1.gpu.first.store}}</a>)
+            </p>
+          {% else %}
+            <span class="text-white-50">Component not selected</span>
+          {% endif %}
         </td>
         <td class="text-center text-warning">
           GPU
-          <p class="text-white-50 small m-0">
-            $ {% difference pc1.gpu.first.price pc2.gpu.first.price 1 %} <br>
-            {% difference pc1.gpu.first.price pc2.gpu.first.price 2 %} %
-          </p>
+          {% if pc1.gpu.first and pc2.gpu.first %}
+            <p class="text-white-50 small m-0">
+              $ {% difference pc1.gpu.first.price pc2.gpu.first.price 1 %} <br>
+              {% difference pc1.gpu.first.price pc2.gpu.first.price 2 %} %
+            </p>
+          {% endif %}
         </td>
         <td class="text-left text-light">
-          <a href="{{pc2.gpu.first.gpu.manufacturer_website}}" class="text-light">
-            {{pc2.gpu.first.gpu}}</a>
-          <p class="small m-0">
-            $ {{pc2.gpu.first.price}} <br>
-            (<a href="{{pc2.gpu.first.url}}" class="text-light">{{pc2.gpu.first.store}}</a>)
-          </p>
+          {% if pc2.gpu.first %}
+            <a href="{{pc2.gpu.first.gpu.manufacturer_website}}" class="text-light" target="_blank">
+              {{pc2.gpu.first.gpu}}</a>
+            <p class="small m-0">
+              $ {{pc2.gpu.first.price}} <br>
+              (<a href="{{pc2.gpu.first.url}}" class="text-light" target="_blank">{{pc2.gpu.first.store}}</a>)
+            </p>
+          {% else %}
+            <span class="text-white-50">Component not selected</span>
+          {% endif %}
         </td>
       </tr>
 
       <tr>
         <td class="text-right text-light">
-          <a href="{{pc1.board.first.board.manufacturer_website}}" class="text-light">
-            {{pc1.board.first.board}}</a>
-          <p class="small m-0">
-            $ {{pc1.board.first.price}} <br>
-            (<a href="{{pc1.board.first.url}}" class="text-light">{{pc1.board.first.store}}</a>)
-          </p>
+          {% if pc1.board.first %}
+            <a href="{{pc1.board.first.board.manufacturer_website}}" class="text-light" target="_blank">
+              {{pc1.board.first.board}}</a>
+            <p class="small m-0">
+              $ {{pc1.board.first.price}} <br>
+              (<a href="{{pc1.board.first.url}}" class="text-light" target="_blank">{{pc1.board.first.store}}</a>)
+            </p>
+          {% else %}
+            <span class="text-white-50">Component not selected</span>
+          {% endif %}
         </td>
         <td class="text-center text-warning">
           Board
-          <p class="text-white-50 small m-0">
-            $ {% difference pc1.board.first.price pc2.board.first.price 1 %} <br>
-            {% difference pc1.board.first.price pc2.board.first.price 2 %} %
-          </p>
+          {% if pc1.board.first and pc2.board.first %}
+            <p class="text-white-50 small m-0">
+              $ {% difference pc1.board.first.price pc2.board.first.price 1 %} <br>
+              {% difference pc1.board.first.price pc2.board.first.price 2 %} %
+            </p>
+          {% endif %}
         </td>
         <td class="text-left text-light">
-          <a href="{{pc2.board.first.board.manufacturer_website}}" class="text-light">
-            {{pc2.board.first.board}}</a>
-          <p class="small m-0">
-            $ {{pc2.board.first.price}} <br>
-            (<a href="{{pc2.board.first.url}}" class="text-light">{{pc2.board.first.store}}</a>)
-          </p>
+          {% if pc2.board.first %}
+            <a href="{{pc2.board.first.board.manufacturer_website}}" class="text-light" target="_blank">
+              {{pc2.board.first.board}}</a>
+            <p class="small m-0">
+              $ {{pc2.board.first.price}} <br>
+              (<a href="{{pc2.board.first.url}}" class="text-light" target="_blank">{{pc2.board.first.store}}</a>)
+            </p>
+          {% else %}
+            <span class="text-white-50">Component not selected</span>
+          {% endif %}
         </td>
       </tr>
 
       <tr>
         <td class="text-right text-light">
-          <a href="{{pc1.ram.first.ram.manufacturer_website}}" class="text-light">
-            {{pc1.ram.first.ram}}</a>
-          <p class="small m-0">
-            $ {{pc1.ram.first.price}} <br>
-            (<a href="{{pc1.ram.first.url}}" class="text-light">{{pc1.ram.first.store}}</a>)
-          </p>
+          {% if pc1.ram.first %}
+            <a href="{{pc1.ram.first.ram.manufacturer_website}}" class="text-light" target="_blank">
+              {{pc1.ram.first.ram}}</a>
+            <p class="small m-0">
+              $ {{pc1.ram.first.price}} <br>
+              (<a href="{{pc1.ram.first.url}}" class="text-light" target="_blank">{{pc1.ram.first.store}}</a>)
+            </p>
+          {% else %}
+            <span class="text-white-50">Component not selected</span>
+          {% endif %}
         </td>
         <td class="text-center text-warning">
           RAM
-          <p class="text-white-50 small m-0">
-            $ {% difference pc1.ram.first.price pc2.ram.first.price 1 %} <br>
-            {% difference pc1.ram.first.price pc2.ram.first.price 2 %} %
-          </p>
+          {% if pc1.ram.first and pc2.ram.first %}
+            <p class="text-white-50 small m-0">
+              $ {% difference pc1.ram.first.price pc2.ram.first.price 1 %} <br>
+              {% difference pc1.ram.first.price pc2.ram.first.price 2 %} %
+            </p>
+          {% endif %}
         </td>
         <td class="text-left text-light">
-          <a href="{{pc2.ram.first.ram.manufacturer_website}}" class="text-light">
-            {{pc2.ram.first.ram}}</a>
-          <p class="small m-0">
-            $ {{pc2.ram.first.price}} <br>
-            (<a href="{{pc2.ram.first.url}}" class="text-light">{{pc2.ram.first.store}}</a>)
-          </p>
+          {% if pc2.ram.first %}
+            <a href="{{pc2.ram.first.ram.manufacturer_website}}" class="text-light" target="_blank">
+              {{pc2.ram.first.ram}}</a>
+            <p class="small m-0">
+              $ {{pc2.ram.first.price}} <br>
+              (<a href="{{pc2.ram.first.url}}" class="text-light" target="_blank">{{pc2.ram.first.store}}</a>)
+            </p>
+          {% else %}
+            <span class="text-white-50">Component not selected</span>
+          {% endif %}
         </td>
       </tr>
 
       <tr>
         <td class="text-right text-light">
-          <a href="{{pc1.psu.first.psu.manufacturer_website}}" class="text-light">
-            {{pc1.psu.first.psu}}</a>
-          <p class="small m-0">
-            $ {{pc1.psu.first.price}} <br>
-            (<a href="{{pc1.psu.first.url}}" class="text-light">{{pc1.psu.first.store}}</a>)
-          </p>
+          {% if pc1.psu.first %}
+            <a href="{{pc1.psu.first.psu.manufacturer_website}}" class="text-light" target="_blank">
+              {{pc1.psu.first.psu}}</a>
+            <p class="small m-0">
+              $ {{pc1.psu.first.price}} <br>
+              (<a href="{{pc1.psu.first.url}}" class="text-light" target="_blank">{{pc1.psu.first.store}}</a>)
+            </p>
+          {% else %}
+            <span class="text-white-50">Component not selected</span>
+          {% endif %}
         </td>
         <td class="text-center text-warning">
           PSU
-          <p class="text-white-50 small m-0">
-            $ {% difference pc1.psu.first.price pc2.psu.first.price 1 %} <br>
-            {% difference pc1.psu.first.price pc2.psu.first.price 2 %} %
-          </p>
+          {% if pc1.psu.first and pc2.psu.first %}
+            <p class="text-white-50 small m-0">
+              $ {% difference pc1.psu.first.price pc2.psu.first.price 1 %} <br>
+              {% difference pc1.psu.first.price pc2.psu.first.price 2 %} %
+            </p>
+          {% endif %}
         </td>
         <td class="text-left text-light">
-          <a href="{{pc2.psu.first.psu.manufacturer_website}}" class="text-light">
-            {{pc2.psu.first.psu}}</a>
-          <p class="small m-0">
-            $ {{pc2.psu.first.price}} <br>
-            (<a href="{{pc2.psu.first.url}}" class="text-light">{{pc2.psu.first.store}}</a>)
-          </p>
+          {% if pc2.psu.first %}
+            <a href="{{pc2.psu.first.psu.manufacturer_website}}" class="text-light" target="_blank">
+              {{pc2.psu.first.psu}}</a>
+            <p class="small m-0">
+              $ {{pc2.psu.first.price}} <br>
+              (<a href="{{pc2.psu.first.url}}" class="text-light" target="_blank">{{pc2.psu.first.store}}</a>)
+            </p>
+          {% else %}
+            <span class="text-white-50">Component not selected</span>
+          {% endif %}
         </td>
       </tr>
 
       <tr>
         <td class="text-right text-light">
-          <a href="{{pc1.case.first.case.manufacturer_website}}" class="text-light">
-            {{pc1.case.first.case}}</a>
-          <p class="small m-0">
-            $ {{pc1.case.first.price}} <br>
-            (<a href="{{pc1.case.first.url}}" class="text-light">{{pc1.case.first.store}}</a>)
-          </p>
+          {% if pc1.case.first %}
+            <a href="{{pc1.case.first.case.manufacturer_website}}" class="text-light" target="_blank">
+              {{pc1.case.first.case}}</a>
+            <p class="small m-0">
+              $ {{pc1.case.first.price}} <br>
+              (<a href="{{pc1.case.first.url}}" class="text-light" target="_blank">{{pc1.case.first.store}}</a>)
+            </p>
+          {% else %}
+            <span class="text-white-50">Component not selected</span>
+          {% endif %}
         </td>
         <td class="text-center text-warning">
           Case
-          <p class="text-white-50 small m-0">
-            $ {% difference pc1.case.first.price pc2.case.first.price 1 %} <br>
-            {% difference pc1.case.first.price pc2.case.first.price 2 %} %
-          </p>
+          {% if pc1.case.first and pc2.case.first %}
+            <p class="text-white-50 small m-0">
+              $ {% difference pc1.case.first.price pc2.case.first.price 1 %} <br>
+              {% difference pc1.case.first.price pc2.case.first.price 2 %} %
+            </p>
+          {% endif %}
         </td>
         <td class="text-left text-light">
-          <a href="{{pc2.case.first.case.manufacturer_website}}" class="text-light">
-            {{pc2.case.first.case}}</a>
-          <p class="small m-0">
-            $ {{pc2.case.first.price}} <br>
-            (<a href="{{pc2.case.first.url}}" class="text-light">{{pc2.case.first.store}}</a>)
+          {% if pc2.case.first %}
+            <a href="{{pc2.case.first.case.manufacturer_website}}" class="text-light" target="_blank">
+              {{pc2.case.first.case}}</a>
+            <p class="small m-0">
+              $ {{pc2.case.first.price}} <br>
+              (<a href="{{pc2.case.first.url}}" class="text-light" target="_blank">{{pc2.case.first.store}}</a>)
+            </p>
+          {% else %}
+            <span class="text-white-50">Component not selected</span>
+          {% endif %}
+        </td>
+      </tr>
+
+      <tr>
+        <td class="text-right text-light">
+          {% if pc1.storage.first %}
+            {% for storage in pc1.storage.all  %}
+              <a href="{{storage.storage.manufacturer_website}}" class="text-light" target="_blank">
+                {{storage.storage}}</a>
+              <p class="small m-0">
+                $ {{storage.price}} (<a href="{{storage.url}}" class="text-light" target="_blank">{{storage.store}}</a>)
+              </p>
+            {% endfor %}
+            <p class="text-warning">Total: $ {% totalstorage pc1 pc2 1 %}</p>
+          {% else %}
+            <span class="text-white-50">Component not selected</span>
+          {% endif %}
+        </td>
+        <td class="text-center text-warning">
+          Storage
+          {% if pc1.storage.first and pc2.storage.first %}
+          <p class="text-white-50 small m-0">
+            $ {% totalstorage pc1 pc2 3 %} <br>
+            {% totalstorage pc1 pc2 4 %} %
           </p>
+          {% endif %}
+        </td>
+        <td class="text-left text-light">
+          {% if pc2.storage.first %}
+            {% for storage in pc2.storage.all %}
+              <a href="{{storage.storage.manufacturer_website}}" class="text-light" target="_blank">
+                {{storage.storage}}</a>
+              <p class="small m-0">
+                $ {{storage.price}} (<a href="{{storage.url}}" class="text-light" target="_blank">{{storage.store}}</a>)
+              </p>
+            {% endfor %}
+            <p class="text-warning">Total: $ {% totalstorage pc1 pc2 2 %}</p>
+          {% else %}
+          <span class="text-white-50">Component not selected</span>
+          {% endif %}
         </td>
       </tr>
 

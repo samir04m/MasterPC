@@ -18,7 +18,7 @@ main {
 }
 .lobster { font-family: 'LobsterTwo' !important; }
 
-.img-store { height: 40px; border-radius: 5px; }
+.img-store { width: 40px; border-radius: 5px; }
 
 .img-list { height: 120px; }
 .list-card-title { font-size: 22px; font-weight: bold; }
@@ -28,6 +28,7 @@ main {
   bottom: 10px;
   right: 20px;
 }
+.pc-name { font-size: 25px; }
 
 @media only screen and (max-width: 600px) {
 	.img-list { height: 100px; }
