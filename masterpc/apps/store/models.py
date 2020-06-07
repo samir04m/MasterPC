@@ -3,7 +3,7 @@ from apps.pc.models import *
 
 class Store(models.Model):
     name = models.CharField('Store name', max_length=50)
-    website = models.URLField('website url', max_length=500)
+    # website = models.URLField('website url', max_length=500)
     logo_url = models.URLField('Logo url', max_length=500)
 
     cpu = models.ManyToManyField(Cpu, through='Store_cpu')
