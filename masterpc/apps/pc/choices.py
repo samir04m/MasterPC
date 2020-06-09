@@ -31,6 +31,7 @@ class RamSize(models.IntegerChoices):
 class StorageSize(models.IntegerChoices):
     O128 = 128, '128 GB'
     O240 = 240, '240 GB'
+    O256 = 256, '256 GB'
     O480 = 480, '480 GB'
     O512 = 512, '512 GB'
     O960 = 960, '960 GB'

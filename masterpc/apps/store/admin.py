@@ -35,30 +35,47 @@ class Store_caseResource(resources.ModelResource):
     class Meta:
         model = Store_case
 
+
 class StoreAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+    search_fields = ['name']
+    list_display = ('name', 'id',)
     resource_class = StoreResource
 
 class Store_cpuAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    class Meta:
-        model =  Store_cpuResource
+    search_fields = ['cpu__manufacturer__name', 'cpu__serie', 'cpu__model', 'store__name']
+    list_display = ('cpu', 'store', 'price', 'is_available')
+    resource_class = Store_cpuResource
+
 class Store_gpuAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    class Meta:
-        model =  Store_gpuResource
+    search_fields = ['gpu__manufacturer__name', 'gpu__serie', 'gpu__model', 'store__name']
+    list_display = ('gpu', 'store', 'price', 'is_available')
+    resource_class = Store_gpuResource
+
 class Store_boardAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    class Meta:
-        model =  Store_boardResource
+    search_fields = ['board__manufacturer__name', 'board__serie', 'board__model', 'store__name']
+    list_display = ('board', 'store', 'price', 'is_available')
+    resource_class = Store_boardResource
+
 class Store_ramAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    class Meta:
-        model =  Store_ramResource
+    search_fields = ['ram__manufacturer__name', 'ram__serie', 'ram__model', 'store__name']
+    list_display = ('ram', 'store', 'price', 'is_available')
+    resource_class = Store_ramResource
+
 class Store_storageAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    class Meta:
-        model =  Store_storageResource
+    search_fields = ['storage__manufacturer__name', 'storage__serie', 'storage__model', 'store__name']
+    list_display = ('storage', 'store', 'price', 'is_available')
+    resource_class = Store_storageResource
+
 class Store_psuAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    class Meta:
-        model =  Store_psuResource
+    search_fields = ['psu__manufacturer__name', 'psu__serie', 'psu__model', 'store__name']
+    list_display = ('psu', 'store', 'price', 'is_available')
+    resource_class = Store_psuResource
+
 class Store_caseAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    class Meta:
-        model =  Store_caseResource
+    search_fields = ['case__manufacturer__name', 'case__serie', 'case__model', 'store__name']
+    list_display = ('case', 'store', 'price', 'is_available')
+    resource_class = Store_caseResource
+
 
 admin.site.register(Store, StoreAdmin)
 admin.site.register(Store_cpu, Store_cpuAdmin)

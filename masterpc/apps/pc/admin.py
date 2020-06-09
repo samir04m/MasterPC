@@ -36,32 +36,44 @@ class StorageResource(resources.ModelResource):
         model = Storage
 
 class ManufacturerAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+    search_fields = ['name']
+    list_display = ('name', 'id')
     resource_class = ManufacturerResource
 
 class CpuAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    resource_class = CpuResource
-
-class CpuAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+    search_fields = ['manufacturer__name', 'serie', 'model']
+    list_display = ('manufacturer', 'serie', 'model')
     resource_class = CpuResource
 
 class GpuAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    resource_class = Gpu
+    search_fields = ['manufacturer__name', 'serie', 'model']
+    list_display = ('manufacturer', 'serie', 'model', 'vram_size')
+    resource_class = GpuResource
 
 class BoardAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    resource_class = Board
+    search_fields = ['manufacturer__name', 'serie', 'model']
+    list_display = ('manufacturer', 'serie', 'model')
+    resource_class = BoardResource
 
 class RamAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    resource_class = Ram
+    search_fields = ['manufacturer__name', 'serie', 'model']
+    list_display = ('manufacturer', 'serie', 'model', 'speed', 'size', 'size_kit')
+    resource_class = RamResource
 
 class PsuAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    resource_class = Psu
+    search_fields = ['manufacturer__name', 'serie', 'model']
+    list_display = ('manufacturer', 'serie', 'model', 'certified')
+    resource_class = PsuResource
 
 class CaseAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    resource_class = Case
+    search_fields = ['manufacturer__name', 'serie', 'model']
+    list_display = ('manufacturer', 'serie', 'model')
+    resource_class = CaseResource
 
 class StorageAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    resource_class = Storage
-
+    search_fields = ['manufacturer__name', 'serie', 'capacity']
+    list_display = ('manufacturer', 'serie', 'model', 'capacity', 'storage_type', 'form_factor')
+    resource_class = StorageResource
 
 admin.site.register(Manufacturer, ManufacturerAdmin)
 admin.site.register(Cpu, CpuAdmin)

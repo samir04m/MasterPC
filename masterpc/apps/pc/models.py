@@ -140,7 +140,7 @@ class Storage(models.Model):
 
 class Psu(models.Model):
     manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
-    serie = models.CharField('Serie', max_length=20)
+    serie = models.CharField('Serie', max_length=20, blank=True, null=True, default='')
     model = models.CharField('Model', max_length=20)
     certified = models.CharField('Certified', max_length=20, choices=Certified.choices, default=Certified.STANDARD)
     manufacturer_website = models.URLField('Manufacturer website', max_length=500)
@@ -155,8 +155,11 @@ class Psu(models.Model):
         verbose_name = 'PSU'
         verbose_name_plural = 'PSUs'
 
+    def getSerie(self):
+        return self.serie if self.serie else ''
+
     def __str__(self):
-        return "{} {} {} ({})".format(self.manufacturer.name, self.serie, self.model, self.get_certified_display())
+        return "{} {} {} ({})".format(self.manufacturer.name, self.getSerie(), self.model, self.get_certified_display())
 
 class Case(models.Model):
     manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
